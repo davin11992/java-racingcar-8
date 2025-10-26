@@ -20,7 +20,7 @@ public class Car {
         }
     }
 
-    public void move(){
+    public void move() {
         if (Randoms.pickNumberInRange(0, 9) >= MOVE_THRESHOLD) {
             position++;
         }

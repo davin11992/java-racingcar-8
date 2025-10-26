@@ -2,17 +2,12 @@ package racingcar.model.domain;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class CarsTest {
+    public static final int MOVING_FORWARD = 4;
 
     @Test
     void 이름_리스트로_Cars_생성() {
@@ -33,6 +28,6 @@ class CarsTest {
 
             assertThat(moved)
                     .allSatisfy(car -> assertThat(car.getPosition()).isEqualTo(1));
-        }, 4, 4);
+        }, MOVING_FORWARD, MOVING_FORWARD);
     }
 }

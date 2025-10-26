@@ -1,45 +1,50 @@
 package racingcar.model.service;
 
+import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import racingcar.model.domain.Car;
 
 class WinnerCalculatorTest {
+    public static final int MOVING_FORWARD = 4;
+    private static final int STOP = 3;
 
     @Test
     void 단독_우승() {
-        Car pobi = new Car("pobi");
-        Car woni = new Car("woni");
+        assertRandomNumberInRangeTest(() -> {
+            Car pobi = new Car("pobi");
+            Car woni = new Car("woni");
 
-        // pobi만 3칸 이동해서 우승
-        for (int i = 0; i < 3; i++) {
-            pobi.move();
-        }
+            // pobi만 3칸 이동해서 우승
+            for (int moveCount = 0; moveCount < 3; moveCount++) {
+                pobi.move();
+            }
 
-        WinnerCalculator winnerCalculator = new WinnerCalculator();
-        List<String> winners = winnerCalculator.findWinners(List.of(pobi, woni));
+            WinnerCalculator winnerCalculator = new WinnerCalculator();
+            List<String> winners = winnerCalculator.findWinners(List.of(pobi, woni));
 
-        assertThat(winners).containsExactly("pobi");
+            assertThat(winners).containsExactly("pobi");
+        }, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP, STOP, STOP);
     }
 
     @Test
     void 공동_우승() {
-        Car pobi = new Car("pobi");
-        Car woni = new Car("woni");
+        assertRandomNumberInRangeTest(() -> {
+            Car pobi = new Car("pobi");
+            Car woni = new Car("woni");
 
-        // pobi, woni 모두 1칸 이동하여 공동 우승
-        pobi.move();
-        woni.move();
+            // pobi, woni 모두 1칸 이동하여 공동우승
+            pobi.move();
+            woni.move();
 
-        WinnerCalculator winnerCalculator = new WinnerCalculator();
-        List<String> winners = winnerCalculator.findWinners(List.of(pobi, woni));
+            WinnerCalculator wc = new WinnerCalculator();
+            List<String> winners = wc.findWinners(List.of(pobi, woni));
 
-        assertThat(winners).containsExactlyInAnyOrder("pobi", "woni");
+            assertThat(winners).containsExactlyInAnyOrder("pobi", "woni");
+        }, MOVING_FORWARD, MOVING_FORWARD);
     }
 
     @Test

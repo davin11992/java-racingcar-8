@@ -22,10 +22,17 @@ public class RacingController {
         String inputNames = inputView.readFirstLine();
         Cars cars = new Cars(parseInputNames(inputNames));
 
-        int roundCount = Integer.parseInt(inputView.readSecondLine());
+        String roundString = inputView.readSecondLine();
+        if (roundString == null || roundString.trim().isEmpty() || !roundString.trim().matches("\\d+")) {
+            throw new IllegalArgumentException("시도 횟수는 1 이상의 정수여야 합니다.");
+        }
+        int roundInt = Integer.parseInt(roundString.trim());
+        if (roundInt <= 0) {
+            throw new IllegalArgumentException("시도 횟수는 1 이상의 정수여야 합니다.");
+        }
 
         outputView.showExecutionResult();
-        for (int i = 0; i < roundCount ; i++) {
+        for (int i = 0; i < roundInt; i++) {
             outputView.showRoundResult(cars.moveAll());
         }
         outputView.showWinners(winnerCalculator.findWinners(cars.getCars()));
