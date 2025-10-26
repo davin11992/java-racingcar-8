@@ -16,6 +16,12 @@ public class Application {
         System.out.println("시도할 횟수는 몇 회인가요?");
         int numberOfRounds = Integer.parseInt(Console.readLine());
 
+        for (int i = 0; i < numberOfRounds; i++) {
+            for (Car car : cars) {
+                car.move();
+            }
+        }
+
         System.out.println("실행 결과");
     }
 
