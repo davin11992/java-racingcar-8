@@ -38,7 +38,7 @@ class ApplicationTest extends NsTest {
         assertRandomNumberInRangeTest(() -> {
             run("pobi,woni", "   2   ");
             assertThat(output()).contains("실행 결과");
-        }, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD); // 2대 × 3라운드 = 6회 난수
+        }, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD);
     }
 
     @ParameterizedTest
@@ -56,7 +56,7 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("pobi,woni", wrongRoundCount))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("시도 횟수는 1 이상의 정수여야 합니다.")
+                        .hasMessageContaining("시도 횟수는 자연수여야 합니다.")
         );
     }
 
@@ -66,7 +66,7 @@ class ApplicationTest extends NsTest {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException("pobi,woni", wrongRoundCount))
                         .isInstanceOf(IllegalArgumentException.class)
-                        .hasMessageContaining("시도 횟수는 1 이상의 정수여야 합니다.")
+                        .hasMessageContaining("시도 횟수는 자연수여야 합니다.")
         );
     }
 

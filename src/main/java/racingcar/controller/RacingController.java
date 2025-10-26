@@ -3,6 +3,7 @@ package racingcar.controller;
 import java.util.Arrays;
 import java.util.List;
 import racingcar.model.domain.Cars;
+import racingcar.model.service.InputValidator;
 import racingcar.model.service.WinnerCalculator;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
@@ -22,23 +23,21 @@ public class RacingController {
         String inputNames = inputView.readFirstLine();
         Cars cars = new Cars(parseInputNames(inputNames));
 
-        String roundString = inputView.readSecondLine();
-        if (roundString == null || roundString.trim().isEmpty() || !roundString.trim().matches("\\d+")) {
-            throw new IllegalArgumentException("시도 횟수는 1 이상의 정수여야 합니다.");
-        }
-        int roundInt = Integer.parseInt(roundString.trim());
-        if (roundInt <= 0) {
-            throw new IllegalArgumentException("시도 횟수는 1 이상의 정수여야 합니다.");
-        }
+        String roundString = inputView.readSecondLine().trim();
+        InputValidator.validateRoundString(roundString);
 
-        outputView.showExecutionResult();
-        for (int i = 0; i < roundInt; i++) {
-            outputView.showRoundResult(cars.moveAll());
-        }
+        outputView.showResultHeader();
+        startRace(Integer.parseInt(roundString), cars);
         outputView.showWinners(winnerCalculator.findWinners(cars.getCars()));
     }
 
-    private static List<String> parseInputNames(String inputNames) {
+    private void startRace(int roundCountInt, Cars cars) {
+        for (int i = 0; i < roundCountInt; i++) {
+            outputView.showRoundResult(cars.moveAll());
+        }
+    }
+
+    private List<String> parseInputNames(String inputNames) {
         return Arrays.stream(inputNames.split(","))
                 .map(String::trim)
                 .toList();
