@@ -1,6 +1,7 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class Application {
         String inputNames = Console.readLine();
 
         List<String> names = nameParse(inputNames);
+        List<Car> cars = createCars(names);
 
         System.out.println("시도할 횟수는 몇 회인가요?");
         int numberOfRounds = Integer.parseInt(Console.readLine());
@@ -21,6 +23,14 @@ public class Application {
         return Arrays.stream(inputNames.split(","))
                 .map(String::trim)
                 .toList();
+    }
+
+    private static List<Car> createCars(List<String> names) {
+        List<Car> cars = new ArrayList<>();
+        for (String name : names) {
+            cars.add(new Car(name));
+        }
+        return cars;
     }
 
 }
