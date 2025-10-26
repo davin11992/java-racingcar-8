@@ -1,4 +1,4 @@
-package racingcar;
+package racingcar.model.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
@@ -21,8 +21,7 @@ public class Car {
     }
 
     public void move(){
-        int randomNumber = Randoms.pickNumberInRange(0, 9);
-        if (randomNumber >= MOVE_THRESHOLD) {
+        if (Randoms.pickNumberInRange(0, 9) >= MOVE_THRESHOLD) {
             position++;
         }
     }

@@ -1,0 +1,39 @@
+package racingcar.controller;
+
+import java.util.Arrays;
+import java.util.List;
+import racingcar.model.domain.Cars;
+import racingcar.model.service.WinnerCalculator;
+import racingcar.view.InputView;
+import racingcar.view.OutputView;
+
+public class RacingController {
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final WinnerCalculator winnerCalculator;
+
+    public RacingController(InputView inputView, OutputView outputView, WinnerCalculator winnerCalculator) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.winnerCalculator = winnerCalculator;
+    }
+
+    public void run() {
+        String inputNames = inputView.readFirstLine();
+        int roundCount = Integer.parseInt(inputView.readSecondLine());
+
+        Cars cars = new Cars(parseInputNames(inputNames));
+
+        outputView.showExecutionResult();
+        for (int i = 0; i < roundCount ; i++) {
+            outputView.showRoundResult(cars.moveAll());
+        }
+        outputView.showWinners(winnerCalculator.findWinners(cars.getCars()));
+    }
+
+    private static List<String> parseInputNames(String inputNames) {
+        return Arrays.stream(inputNames.split(","))
+                .map(String::trim)
+                .toList();
+    }
+}
