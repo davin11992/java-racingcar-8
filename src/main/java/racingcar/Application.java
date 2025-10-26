@@ -26,6 +26,9 @@ public class Application {
             }
             System.out.println();
         }
+
+        List<String> winners = findWinners(cars);
+        System.out.println("최종 우승자 : "+ String.join(", ", winners));
     }
 
     private static List<String> nameParse(String inputNames) {
@@ -40,6 +43,18 @@ public class Application {
             cars.add(new Car(name));
         }
         return cars;
+    }
+
+    private static List<String> findWinners(List<Car> cars) {
+        int maxPosition = cars.stream()
+                .mapToInt(Car::getPosition)
+                .max()
+                .orElseThrow(() -> new IllegalArgumentException("자동차 목록이 비어 있습니다."));;
+
+        return cars.stream()
+                .filter(car -> car.getPosition() == maxPosition)
+                .map(Car::getName)
+                .toList();
     }
 
 }
