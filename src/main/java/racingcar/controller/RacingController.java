@@ -20,9 +20,9 @@ public class RacingController {
 
     public void run() {
         String inputNames = inputView.readFirstLine();
-        int roundCount = Integer.parseInt(inputView.readSecondLine());
-
         Cars cars = new Cars(parseInputNames(inputNames));
+
+        int roundCount = Integer.parseInt(inputView.readSecondLine());
 
         outputView.showExecutionResult();
         for (int i = 0; i < roundCount ; i++) {
