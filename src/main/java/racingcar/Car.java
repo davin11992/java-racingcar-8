@@ -9,7 +9,14 @@ public class Car {
     private int position = 0;
 
     public Car(String name) {
+        validateName(name);
         this.name = name;
+    }
+
+    private void validateName(String name) {
+        if (name == null || name.isBlank() || name.length() > NAME_MAX_LENGTH) {
+            throw new IllegalArgumentException("자동차 이름은 5자 이하만 가능합니다.");
+        }
     }
 
     public String getName() {
