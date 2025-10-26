@@ -2,6 +2,9 @@ package racingcar;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import racingcar.model.domain.Car;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberInRangeTest;
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
@@ -29,6 +32,26 @@ class ApplicationTest extends NsTest {
             assertThatThrownBy(() -> runException("pobi,javaji", "1"))
                 .isInstanceOf(IllegalArgumentException.class)
         );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"hi", "안녕", "", "   "})
+    void 예외_시도횟수가_숫자가_아닌_경우(String wrongRoundCount) {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,woni", wrongRoundCount))
+                        .isInstanceOf(NumberFormatException.class)
+                        .hasMessageContaining("시도 횟수는 1 이상의 정수여야 합니다.")
+        );
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"0", "-1", "-100"})
+    void 예외_시도횟수가_0_이하(String wrongRoundCount) {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("pobi,woni", wrongRoundCount))
+                        .isInstanceOf(IllegalArgumentException.class)
+                        .hasMessageContaining("시도 횟수는 1 이상의 정수여야 합니다.")
+    );
     }
 
     @Override
