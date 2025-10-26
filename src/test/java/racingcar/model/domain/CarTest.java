@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class CarTest {
+
     @ParameterizedTest
     @ValueSource(strings = {"helloworld", "안녕하세요hi", "he  ll"})
     void 예외_이름_5자_초과(String lengthExceededName) {

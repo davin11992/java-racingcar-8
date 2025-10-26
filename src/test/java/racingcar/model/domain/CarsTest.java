@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 class CarsTest {
+
     @Test
     void 이름_리스트로_Cars_생성() {
         List<String> names = List.of("pobi", "woni", "davin");
