@@ -23,5 +23,4 @@ public class InputView {
             throw new IllegalArgumentException(errorMessage);
         }
     }
-
 }

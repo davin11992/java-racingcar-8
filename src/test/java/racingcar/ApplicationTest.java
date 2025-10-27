@@ -37,12 +37,12 @@ class ApplicationTest extends NsTest {
     void 시도횟수_양끝공백_허용() {
         assertRandomNumberInRangeTest(() -> {
             run("pobi,woni", "   2   ");
-            assertThat(output()).contains("실행 결과");
-        }, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD);
+            assertThat(output()).contains("실행 결과", "pobi : --", "woni : ", "최종 우승자 : pobi");
+        }, MOVING_FORWARD, STOP, MOVING_FORWARD, STOP);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"pobi,  ,woni", "pobi,,woni", ""})
+    @ValueSource(strings = {"pobi,  ,woni", "pobi,,woni", "", "   "})
     void 예외_자동차_이름이_없거나_공백(String inputNames) {
         assertSimpleTest(() ->
                 assertThatThrownBy(() -> runException(inputNames, "1"))

@@ -26,7 +26,7 @@ class WinnerCalculatorTest {
             WinnerCalculator winnerCalculator = new WinnerCalculator();
             List<String> winners = winnerCalculator.findWinners(List.of(pobi, woni));
 
-            assertThat(winners).containsExactly("pobi");
+            assertThat(winners).hasSize(1).containsExactly("pobi");
         }, MOVING_FORWARD, MOVING_FORWARD, MOVING_FORWARD, STOP, STOP, STOP);
     }
 
